@@ -1,5 +1,5 @@
-
 import 'package:apple_market_app/core/router/router_path.dart';
+import 'package:apple_market_app/domain/model/product.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../presentation/detail/detail_screen.dart';
@@ -14,7 +14,10 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: RouterPath.detail,
-      builder: (context, state) => const DetailScreen(),
+      builder: (context, state) {
+        final product = state.extra as Product;
+        return DetailScreen(product: product);
+      },
     ),
   ],
 );
