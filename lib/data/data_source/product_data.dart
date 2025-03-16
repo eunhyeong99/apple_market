@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:apple_market_app/core/storage/product_storage.dart';
+import 'package:apple_market_app/domain/model/product.dart';
+
 class ProductData {
   final _mockProductData = {
     'products': [
@@ -11,6 +16,7 @@ class ProductData {
         "address": "서울 서대문구 창천동",
         "good": 13,
         "chatCnt": 25,
+        "isLiked": false,
       },
       {
         "id": 2,
@@ -22,6 +28,7 @@ class ProductData {
         "address": "인천 계양구 귤현동",
         "good": 8,
         "chatCnt": 28,
+        "isLiked": false,
       },
       {
         "id": 3,
@@ -33,6 +40,7 @@ class ProductData {
         "address": "수성구 범어동",
         "good": 23,
         "chatCnt": 5,
+        "isLiked": false,
       },
       {
         "id": 4,
@@ -44,6 +52,7 @@ class ProductData {
         "address": "해운대구 우제2동",
         "good": 14,
         "chatCnt": 17,
+        "isLiked": false,
       },
       {
         "id": 5,
@@ -56,6 +65,7 @@ class ProductData {
         "address": "연제구 연산제8동",
         "good": 22,
         "chatCnt": 9,
+        "isLiked": false,
       },
       {
         "id": 6,
@@ -67,6 +77,7 @@ class ProductData {
         "address": "수원시 영통구 원천동",
         "good": 25,
         "chatCnt": 16,
+        "isLiked": false,
       },
       {
         "id": 7,
@@ -89,6 +100,7 @@ class ProductData {
         "address": "남구 옥동",
         "good": 142,
         "chatCnt": 54,
+        "isLiked": false,
       },
       {
         "id": 8,
@@ -105,6 +117,7 @@ class ProductData {
         "address": "동래구 온천제2동",
         "good": 31,
         "chatCnt": 7,
+        "isLiked": false,
       },
       {
         "id": 9,
@@ -118,6 +131,7 @@ class ProductData {
         "address": "원주시 명륜2동",
         "good": 7,
         "chatCnt": 28,
+        "isLiked": false,
       },
       {
         "id": 10,
@@ -134,12 +148,29 @@ class ProductData {
         "address": "중구 동화동",
         "good": 40,
         "chatCnt": 6,
+        "isLiked": false,
       },
     ],
   };
 
+  final ProductStorage _productStorage = ProductStorage();
+
   Future<List<Map<String, dynamic>>> getProducts() async {
-    return await _mockProductData['products']!;
+    final storedProducts = await _productStorage.loadProducts();
+    if (storedProducts.isEmpty) {
+      await _productStorage.saveProducts(_mockProductData['products']!);
+    }
+    return _productStorage.loadProducts();
   }
 
+  Future<List<Map<String, dynamic>>> loadFromProductStorage() async {
+    return await _productStorage.loadProducts();
+  }
+
+  Future<void> resetProducts() async {
+    await _productStorage.clearProducts(); // 기존 데이터 삭제
+    await _productStorage.saveProducts(
+      _mockProductData['products']!,
+    ); // 새로운 데이터 저장
+  }
 }

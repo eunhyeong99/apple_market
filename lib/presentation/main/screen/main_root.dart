@@ -1,4 +1,5 @@
 import 'package:apple_market_app/core/di/di.dart';
+import 'package:apple_market_app/core/storage/product_storage.dart';
 import 'package:apple_market_app/domain/usecase/get_products_use_case.dart';
 import 'package:apple_market_app/presentation/main/screen/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class MainRoot extends StatefulWidget {
 
 class _MainRootState extends State<MainRoot> {
   var isClicked = false;
+  final ProductStorage _productStorage = ProductStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +25,15 @@ class _MainRootState extends State<MainRoot> {
       body: FutureBuilder<List<Product>>(
         future: getIt<GetProductsUseCase>().execute(), // 비동기 호출
         builder: (context, snapshot) {
+
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text("데이터를 불러오는 중 오류 발생"));
+            print("🔥 데이터 로드 중 오류 발생: ${snapshot.error}");
+            return Center(child: Text("데이터를 불러오는 중 오류 발생\n${snapshot.error}"));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(child: Text("상품이 없습니다."));
           }
-
           final products = snapshot.data!;
 
           return MainScreen(products: products);

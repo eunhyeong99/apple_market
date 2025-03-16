@@ -17,7 +17,6 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<List<Product>> getProducts() async {
     final products = await _productData.getProducts();
-    final result = products.map((e) => Product.fromJson(e)).toList();
-    return result;
+    return List.of(products.map((e) => Product.fromJson(e)));
   }
 }

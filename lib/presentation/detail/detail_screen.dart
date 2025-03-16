@@ -1,3 +1,4 @@
+import 'package:apple_market_app/core/storage/product_storage.dart';
 import 'package:apple_market_app/domain/model/product.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -14,19 +15,34 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   late bool likeBtn;
   late int likeCount;
+  final ProductStorage _productStorage = ProductStorage();
 
   @override
   void initState() {
     super.initState();
-    likeBtn = false; // 초기 좋아요 상태
-    likeCount = widget.product.good; // 초기 좋아요 개수
+    likeBtn = false;
+    likeCount = widget.product.good;
+
+    _loadLikeState();
   }
 
-  void toggleLike() {
+  void _loadLikeState() async {
+    final productData = await _productStorage.getLikeState(widget.product.id);
+    if (productData != null) {
+      setState(() {
+        likeCount = productData['good'];
+        likeBtn = productData['isLiked'] ?? false;
+      });
+    }
+  }
+
+  void toggleLike() async {
     setState(() {
       likeBtn = !likeBtn;
       likeCount = likeBtn ? likeCount + 1 : likeCount - 1;
     });
+
+    await _productStorage.updateLikeState(widget.product.id, likeCount, likeBtn);
   }
 
   @override
@@ -39,7 +55,7 @@ class _DetailScreenState extends State<DetailScreen> {
           onPressed: () {
             Navigator.pop(
               context,
-              widget.product.copyWith(good: likeCount), // ✅ 변경된 좋아요 수 전달
+              widget.product.copyWith(good: likeCount, isLiked: likeBtn),
             );
           },
         ),
@@ -112,12 +128,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8),
-                  Text(widget.product.description, style: TextStyle(fontSize: 16)),
+                  Text(
+                    widget.product.description,
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ],
               ),
             ),
-
-            SizedBox(height: 16), // 추가 여백
+            SizedBox(height: 16),
           ],
         ),
       ),

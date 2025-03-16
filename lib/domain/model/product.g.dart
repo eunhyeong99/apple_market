@@ -16,6 +16,7 @@ _Product _$ProductFromJson(Map<String, dynamic> json) => _Product(
   address: json['address'] as String,
   good: (json['good'] as num).toInt(),
   chatCnt: (json['chatCnt'] as num).toInt(),
+  isLiked: json['isLiked'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$ProductToJson(_Product instance) => <String, dynamic>{
@@ -28,4 +29,5 @@ Map<String, dynamic> _$ProductToJson(_Product instance) => <String, dynamic>{
   'address': instance.address,
   'good': instance.good,
   'chatCnt': instance.chatCnt,
+  'isLiked': instance.isLiked,
 };

@@ -71,7 +71,13 @@ class ProductCard extends StatelessWidget {
                             SizedBox(width: 4),
                             Text("${product.chatCnt}"),
                             SizedBox(width: 12),
-                            Icon(Icons.favorite_border, size: 16),
+                            Icon(
+                              product.isLiked // ✅ 좋아요 여부에 따라 아이콘 변경
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              size: 16,
+                              color: product.isLiked ? Colors.red : Colors.grey,
+                            ),
                             SizedBox(width: 4),
                             Text("${product.good}"),
                           ],

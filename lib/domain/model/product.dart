@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'product.freezed.dart';
+
 part 'product.g.dart';
 
 @freezed
@@ -15,9 +16,8 @@ abstract class Product with _$Product {
     required String address,
     required int good,
     required int chatCnt,
+    @Default(false) bool isLiked,
   }) = _Product;
-
-
 
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);

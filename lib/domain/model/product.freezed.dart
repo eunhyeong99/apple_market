@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Product {
 
- int get id; String get imgUrl; String get name; String get description; String get seller; int get price; String get address; int get good; int get chatCnt;
+ int get id; String get imgUrl; String get name; String get description; String get seller; int get price; String get address; int get good; int get chatCnt; bool get isLiked;
 /// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $ProductCopyWith<Product> get copyWith => _$ProductCopyWithImpl<Product>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Product&&(identical(other.id, id) || other.id == id)&&(identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.seller, seller) || other.seller == seller)&&(identical(other.price, price) || other.price == price)&&(identical(other.address, address) || other.address == address)&&(identical(other.good, good) || other.good == good)&&(identical(other.chatCnt, chatCnt) || other.chatCnt == chatCnt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Product&&(identical(other.id, id) || other.id == id)&&(identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.seller, seller) || other.seller == seller)&&(identical(other.price, price) || other.price == price)&&(identical(other.address, address) || other.address == address)&&(identical(other.good, good) || other.good == good)&&(identical(other.chatCnt, chatCnt) || other.chatCnt == chatCnt)&&(identical(other.isLiked, isLiked) || other.isLiked == isLiked));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,imgUrl,name,description,seller,price,address,good,chatCnt);
+int get hashCode => Object.hash(runtimeType,id,imgUrl,name,description,seller,price,address,good,chatCnt,isLiked);
 
 @override
 String toString() {
-  return 'Product(id: $id, imgUrl: $imgUrl, name: $name, description: $description, seller: $seller, price: $price, address: $address, good: $good, chatCnt: $chatCnt)';
+  return 'Product(id: $id, imgUrl: $imgUrl, name: $name, description: $description, seller: $seller, price: $price, address: $address, good: $good, chatCnt: $chatCnt, isLiked: $isLiked)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $ProductCopyWith<$Res>  {
   factory $ProductCopyWith(Product value, $Res Function(Product) _then) = _$ProductCopyWithImpl;
 @useResult
 $Res call({
- int id, String imgUrl, String name, String description, String seller, int price, String address, int good, int chatCnt
+ int id, String imgUrl, String name, String description, String seller, int price, String address, int good, int chatCnt, bool isLiked
 });
 
 
@@ -66,7 +66,7 @@ class _$ProductCopyWithImpl<$Res>
 
 /// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? imgUrl = null,Object? name = null,Object? description = null,Object? seller = null,Object? price = null,Object? address = null,Object? good = null,Object? chatCnt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? imgUrl = null,Object? name = null,Object? description = null,Object? seller = null,Object? price = null,Object? address = null,Object? good = null,Object? chatCnt = null,Object? isLiked = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,imgUrl: null == imgUrl ? _self.imgUrl : imgUrl // ignore: cast_nullable_to_non_nullable
@@ -77,7 +77,8 @@ as String,price: null == price ? _self.price : price // ignore: cast_nullable_to
 as int,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String,good: null == good ? _self.good : good // ignore: cast_nullable_to_non_nullable
 as int,chatCnt: null == chatCnt ? _self.chatCnt : chatCnt // ignore: cast_nullable_to_non_nullable
-as int,
+as int,isLiked: null == isLiked ? _self.isLiked : isLiked // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -88,7 +89,7 @@ as int,
 @JsonSerializable()
 
 class _Product implements Product {
-  const _Product({required this.id, required this.imgUrl, required this.name, required this.description, required this.seller, required this.price, required this.address, required this.good, required this.chatCnt});
+  const _Product({required this.id, required this.imgUrl, required this.name, required this.description, required this.seller, required this.price, required this.address, required this.good, required this.chatCnt, this.isLiked = false});
   factory _Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
 
 @override final  int id;
@@ -100,6 +101,7 @@ class _Product implements Product {
 @override final  String address;
 @override final  int good;
 @override final  int chatCnt;
+@override@JsonKey() final  bool isLiked;
 
 /// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
@@ -114,16 +116,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Product&&(identical(other.id, id) || other.id == id)&&(identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.seller, seller) || other.seller == seller)&&(identical(other.price, price) || other.price == price)&&(identical(other.address, address) || other.address == address)&&(identical(other.good, good) || other.good == good)&&(identical(other.chatCnt, chatCnt) || other.chatCnt == chatCnt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Product&&(identical(other.id, id) || other.id == id)&&(identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.seller, seller) || other.seller == seller)&&(identical(other.price, price) || other.price == price)&&(identical(other.address, address) || other.address == address)&&(identical(other.good, good) || other.good == good)&&(identical(other.chatCnt, chatCnt) || other.chatCnt == chatCnt)&&(identical(other.isLiked, isLiked) || other.isLiked == isLiked));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,imgUrl,name,description,seller,price,address,good,chatCnt);
+int get hashCode => Object.hash(runtimeType,id,imgUrl,name,description,seller,price,address,good,chatCnt,isLiked);
 
 @override
 String toString() {
-  return 'Product(id: $id, imgUrl: $imgUrl, name: $name, description: $description, seller: $seller, price: $price, address: $address, good: $good, chatCnt: $chatCnt)';
+  return 'Product(id: $id, imgUrl: $imgUrl, name: $name, description: $description, seller: $seller, price: $price, address: $address, good: $good, chatCnt: $chatCnt, isLiked: $isLiked)';
 }
 
 
@@ -134,7 +136,7 @@ abstract mixin class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
   factory _$ProductCopyWith(_Product value, $Res Function(_Product) _then) = __$ProductCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String imgUrl, String name, String description, String seller, int price, String address, int good, int chatCnt
+ int id, String imgUrl, String name, String description, String seller, int price, String address, int good, int chatCnt, bool isLiked
 });
 
 
@@ -151,7 +153,7 @@ class __$ProductCopyWithImpl<$Res>
 
 /// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? imgUrl = null,Object? name = null,Object? description = null,Object? seller = null,Object? price = null,Object? address = null,Object? good = null,Object? chatCnt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? imgUrl = null,Object? name = null,Object? description = null,Object? seller = null,Object? price = null,Object? address = null,Object? good = null,Object? chatCnt = null,Object? isLiked = null,}) {
   return _then(_Product(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,imgUrl: null == imgUrl ? _self.imgUrl : imgUrl // ignore: cast_nullable_to_non_nullable
@@ -162,7 +164,8 @@ as String,price: null == price ? _self.price : price // ignore: cast_nullable_to
 as int,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String,good: null == good ? _self.good : good // ignore: cast_nullable_to_non_nullable
 as int,chatCnt: null == chatCnt ? _self.chatCnt : chatCnt // ignore: cast_nullable_to_non_nullable
-as int,
+as int,isLiked: null == isLiked ? _self.isLiked : isLiked // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
